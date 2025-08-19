@@ -126,6 +126,7 @@ pre_data <- df %>%
          INVTYPE, T, Q1, Q2, Q3, Q4, Date_CenterQuarter, Pandemic)
 
 ## STEP 2: Power calculation and simulation for 475 ASE locations
+## Power calculation and simulation for 475 ASE locations
 library(tidyverse)
 library(lubridate)
 library(readxl)
@@ -138,6 +139,7 @@ library(Matrix)
 library(INLA)
 
 # Fit a Negative Binomial model to generate simulated data for 475 locations
+pre_data <- read_excel("pre_pandemic_data_by 300 ASE location.xlsx")
 nb_model <- glm.nb(Collisions ~ Q1 + Q2 + Q3 + T + Pandemic, data = pre_data)
 summary(nb_model)
 
@@ -226,7 +228,7 @@ set.seed(123)  # For reproducibility
 #                                    X3*df.2$Q3 + 
 #                                    X4*df.2$Time + 
 #                                    X5*df.2$pandemic))
-#BRICE JULY 2025
+
 # HERE IS THE CODE TO ESTIMATE THETA WITH THE ORIGINAL TORONTO DATA
 # Fit a Negative Binomial model
 nb_model <- glm.nb(Collisions ~ Q1 + Q2 + Q3 + T + Pandemic, data = pre_data)
@@ -248,7 +250,7 @@ mu <- exp(Intercept + df.2$random_value +
 # Generate Negative Binomial data
 df.2$Collisions <- rnbinom(n = nrow(df.2), size = theta, mu = mu)
 
-write.csv(df.2,"simulated_data_2025Aug15.csv", row.names = FALSE)
+write.csv(df.2,"simulated_data_2025Aug19.csv", row.names = FALSE)
 
 df.2$Secular <- df.2$Time
 df.2 <- dummy_cols(df.2,  select_columns = "ID")
@@ -256,7 +258,6 @@ str(df.2)
 str(df.2, list.len=ncol(df.2))
 
 # Calculate predicted counts
-
 Sim_pre.2 <- subset(df.2, Time <1)
 
 comp.a <- Collisions ~ Time + Q1 + Q2 + Q3 + pandemic + ID_1 + ID_2 + ID_3 + ID_4 + 
@@ -303,7 +304,26 @@ comp.a <- Collisions ~ Time + Q1 + Q2 + Q3 + pandemic + ID_1 + ID_2 + ID_3 + ID_
   ID_316 + ID_317 + ID_318 + ID_319 + ID_320 + ID_321 + ID_322 + 
   ID_323 + ID_324 + ID_325 + ID_326 + ID_327 + ID_328 + ID_329 + 
   ID_330 + ID_331 + ID_332 + ID_333 + ID_334 + ID_335 + ID_336 + 
-  ID_337 + ID_338 + ID_339 + ID_340 + ID_341 + ID_342 + ID_343 + ID_344 + ID_345 + ID_346 + ID_347 + ID_348 + ID_349 + ID_350 + ID_351 + ID_352 + ID_353 + ID_354 + ID_355 + ID_356 + ID_357 + ID_358 + ID_359 + ID_360 + ID_361 + ID_362 + ID_363 + ID_364 + ID_365 + ID_366 + ID_367 + ID_368 + ID_369 + ID_370 + ID_371 + ID_372 + ID_373 + ID_374 + ID_375 + ID_376 + ID_377 + ID_378 + ID_379 + ID_380 + ID_381 + ID_382 + ID_383 + ID_384 + ID_385 + ID_386 + ID_387 + ID_388 + ID_389 + ID_390 + ID_391 + ID_392 + ID_393 + ID_394 + ID_395 + ID_396 + ID_397 + ID_398 + ID_399 + ID_400 + ID_401 + ID_402 + ID_403 + ID_404 + ID_405 + ID_406 + ID_407 + ID_408 + ID_409 + ID_410 + ID_411 + ID_412 + ID_413 + ID_414 + ID_415 + ID_416 + ID_417 + ID_418 + ID_419 + ID_420 + ID_421 + ID_422 + ID_423 + ID_424 + ID_425 + ID_426 + ID_427 + ID_428 + ID_429 + ID_430 + ID_431 + ID_432 + ID_433 + ID_434 + ID_435 + ID_436 + ID_437 + ID_438 + ID_439 + ID_440 + ID_441 + ID_442 + ID_443 + ID_444 + ID_445 + ID_446 + ID_447 + ID_448 + ID_449 + ID_450 + ID_451 + ID_452 + ID_453 + ID_454 + ID_455 + ID_456 + ID_457 + ID_458 + ID_459 + ID_460 + ID_461 + ID_462 + ID_463 + ID_464 + ID_465 + ID_466 + ID_467 + ID_468 + ID_469 + ID_470 + ID_471 + ID_472 + ID_473 + ID_474 + name(Secular, model = "ar", order=1)
+  ID_337 + ID_338 + ID_339 + ID_340 + ID_341 + ID_342 + ID_343 + 
+  ID_344 + ID_345 + ID_346 + ID_347 + ID_348 + ID_349 + ID_350 + 
+  ID_351 + ID_352 + ID_353 + ID_354 + ID_355 + ID_356 + ID_357 + 
+  ID_358 + ID_359 + ID_360 + ID_361 + ID_362 + ID_363 + ID_364 + 
+  ID_365 + ID_366 + ID_367 + ID_368 + ID_369 + ID_370 + ID_371 + 
+  ID_372 + ID_373 + ID_374 + ID_375 + ID_376 + ID_377 + ID_378 + 
+  ID_379 + ID_380 + ID_381 + ID_382 + ID_383 + ID_384 + ID_385 + 
+  ID_386 + ID_387 + ID_388 + ID_389 + ID_390 + ID_391 + ID_392 + 
+  ID_393 + ID_394 + ID_395 + ID_396 + ID_397 + ID_398 + ID_399 + 
+  ID_400 + ID_401 + ID_402 + ID_403 + ID_404 + ID_405 + ID_406 + 
+  ID_407 + ID_408 + ID_409 + ID_410 + ID_411 + ID_412 + ID_413 + 
+  ID_414 + ID_415 + ID_416 + ID_417 + ID_418 + ID_419 + ID_420 + 
+  ID_421 + ID_422 + ID_423 + ID_424 + ID_425 + ID_426 + ID_427 + 
+  ID_428 + ID_429 + ID_430 + ID_431 + ID_432 + ID_433 + ID_434 + 
+  ID_435 + ID_436 + ID_437 + ID_438 + ID_439 + ID_440 + ID_441 + 
+  ID_442 + ID_443 + ID_444 + ID_445 + ID_446 + ID_447 + ID_448 + 
+  ID_449 + ID_450 + ID_451 + ID_452 + ID_453 + ID_454 + ID_455 + 
+  ID_456 + ID_457 + ID_458 + ID_459 + ID_460 + ID_461 + ID_462 + 
+  ID_463 + ID_464 + ID_465 + ID_466 + ID_467 + ID_468 + ID_469 + 
+  ID_470 + ID_471 + ID_472 + ID_473 + ID_474 + name(Secular, model = "ar", order=1)
 
 fit2b <- bru(comp.a, formula = Collisions ~ Intercept + Time + Q1 + Q2 + Q3 + 
                pandemic + ID_1 + ID_2 + ID_3 + ID_4 + 
@@ -350,7 +370,26 @@ fit2b <- bru(comp.a, formula = Collisions ~ Intercept + Time + Q1 + Q2 + Q3 +
                ID_316 + ID_317 + ID_318 + ID_319 + ID_320 + ID_321 + ID_322 + 
                ID_323 + ID_324 + ID_325 + ID_326 + ID_327 + ID_328 + ID_329 + 
                ID_330 + ID_331 + ID_332 + ID_333 + ID_334 + ID_335 + ID_336 + 
-               ID_337 + ID_338 + ID_339 + ID_340 + ID_341 + ID_342 + ID_343 + ID_344 + ID_345 + ID_346 + ID_347 + ID_348 + ID_349 + ID_350 + ID_351 + ID_352 + ID_353 + ID_354 + ID_355 + ID_356 + ID_357 + ID_358 + ID_359 + ID_360 + ID_361 + ID_362 + ID_363 + ID_364 + ID_365 + ID_366 + ID_367 + ID_368 + ID_369 + ID_370 + ID_371 + ID_372 + ID_373 + ID_374 + ID_375 + ID_376 + ID_377 + ID_378 + ID_379 + ID_380 + ID_381 + ID_382 + ID_383 + ID_384 + ID_385 + ID_386 + ID_387 + ID_388 + ID_389 + ID_390 + ID_391 + ID_392 + ID_393 + ID_394 + ID_395 + ID_396 + ID_397 + ID_398 + ID_399 + ID_400 + ID_401 + ID_402 + ID_403 + ID_404 + ID_405 + ID_406 + ID_407 + ID_408 + ID_409 + ID_410 + ID_411 + ID_412 + ID_413 + ID_414 + ID_415 + ID_416 + ID_417 + ID_418 + ID_419 + ID_420 + ID_421 + ID_422 + ID_423 + ID_424 + ID_425 + ID_426 + ID_427 + ID_428 + ID_429 + ID_430 + ID_431 + ID_432 + ID_433 + ID_434 + ID_435 + ID_436 + ID_437 + ID_438 + ID_439 + ID_440 + ID_441 + ID_442 + ID_443 + ID_444 + ID_445 + ID_446 + ID_447 + ID_448 + ID_449 + ID_450 + ID_451 + ID_452 + ID_453 + ID_454 + ID_455 + ID_456 + ID_457 + ID_458 + ID_459 + ID_460 + ID_461 + ID_462 + ID_463 + ID_464 + ID_465 + ID_466 + ID_467 + ID_468 + ID_469 + ID_470 + ID_471 + ID_472 + ID_473 + ID_474 +  name,
+               ID_337 + ID_338 + ID_339 + ID_340 + ID_341 + ID_342 + ID_343 + 
+               ID_344 + ID_345 + ID_346 + ID_347 + ID_348 + ID_349 + ID_350 + 
+               ID_351 + ID_352 + ID_353 + ID_354 + ID_355 + ID_356 + ID_357 + 
+               ID_358 + ID_359 + ID_360 + ID_361 + ID_362 + ID_363 + ID_364 + 
+               ID_365 + ID_366 + ID_367 + ID_368 + ID_369 + ID_370 + ID_371 + 
+               ID_372 + ID_373 + ID_374 + ID_375 + ID_376 + ID_377 + ID_378 + 
+               ID_379 + ID_380 + ID_381 + ID_382 + ID_383 + ID_384 + ID_385 + 
+               ID_386 + ID_387 + ID_388 + ID_389 + ID_390 + ID_391 + ID_392 + 
+               ID_393 + ID_394 + ID_395 + ID_396 + ID_397 + ID_398 + ID_399 + 
+               ID_400 + ID_401 + ID_402 + ID_403 + ID_404 + ID_405 + ID_406 + 
+               ID_407 + ID_408 + ID_409 + ID_410 + ID_411 + ID_412 + ID_413 + 
+               ID_414 + ID_415 + ID_416 + ID_417 + ID_418 + ID_419 + ID_420 + 
+               ID_421 + ID_422 + ID_423 + ID_424 + ID_425 + ID_426 + ID_427 + 
+               ID_428 + ID_429 + ID_430 + ID_431 + ID_432 + ID_433 + ID_434 + 
+               ID_435 + ID_436 + ID_437 + ID_438 + ID_439 + ID_440 + ID_441 + 
+               ID_442 + ID_443 + ID_444 + ID_445 + ID_446 + ID_447 + ID_448 + 
+               ID_449 + ID_450 + ID_451 + ID_452 + ID_453 + ID_454 + ID_455 + 
+               ID_456 + ID_457 + ID_458 + ID_459 + ID_460 + ID_461 + ID_462 + 
+               ID_463 + ID_464 + ID_465 + ID_466 + ID_467 + ID_468 + ID_469 + 
+               ID_470 + ID_471 + ID_472 + ID_473 + ID_474 +  name,
              family = "nbinomial", data = Sim_pre.2)
 
 summary(fit2b)
@@ -365,11 +404,11 @@ summary(fit2) #TO COMPARE, the results must very similar with fit2b
 
 ### POST PERIOD
 #ASE.PERIOD <- subset(df.2, Time >0, select =-c(Collisions))
-#Note that I'm removing collisions now
 ASE.PERIOD2 <- df.2; ASE.PERIOD2$Y <- ASE.PERIOD2$Collisions
 ASE.PERIOD2 <-  subset(ASE.PERIOD2, select =-c(Collisions))
 
-Count.Pred <- predict(fit2b, seed=123, ASE.PERIOD2, formula = ~ exp(Intercept + Time + Q1 + Q2 + Q3 + pandemic + ID_1 + ID_2 + ID_3 + ID_4 + 
+Count.Pred <- predict(fit2b, seed=123, 
+                      ASE.PERIOD2, formula = ~ exp(Intercept + Time + Q1 + Q2 + Q3 + pandemic + ID_1 + ID_2 + ID_3 + ID_4 + 
                                                                       ID_5 + ID_6 + ID_7 + ID_8 + ID_9 + ID_10 +  ID_11 + ID_12 + ID_13 + ID_14 + 
                                                                       ID_15 + ID_16 + ID_17 + ID_18 +   ID_19 + ID_20 + ID_21 + ID_22 + ID_23 + 
                                                                       ID_24 + ID_25 + ID_26 +   ID_27 + ID_28 + ID_29 + ID_30 + ID_31 + ID_32 + 
@@ -413,74 +452,88 @@ Count.Pred <- predict(fit2b, seed=123, ASE.PERIOD2, formula = ~ exp(Intercept + 
                                                                       ID_316 + ID_317 + ID_318 + ID_319 + ID_320 + ID_321 + ID_322 + 
                                                                       ID_323 + ID_324 + ID_325 + ID_326 + ID_327 + ID_328 + ID_329 + 
                                                                       ID_330 + ID_331 + ID_332 + ID_333 + ID_334 + ID_335 + ID_336 + 
-                                                                      ID_337 + ID_338 + ID_339 + ID_340 + ID_341 + ID_342 + ID_343 + ID_344 + ID_345 + ID_346 + ID_347 + ID_348 + ID_349 + ID_350 + ID_351 + ID_352 + ID_353 + ID_354 + ID_355 + ID_356 + ID_357 + ID_358 + ID_359 + ID_360 + ID_361 + ID_362 + ID_363 + ID_364 + ID_365 + ID_366 + ID_367 + ID_368 + ID_369 + ID_370 + ID_371 + ID_372 + ID_373 + ID_374 + ID_375 + ID_376 + ID_377 + ID_378 + ID_379 + ID_380 + ID_381 + ID_382 + ID_383 + ID_384 + ID_385 + ID_386 + ID_387 + ID_388 + ID_389 + ID_390 + ID_391 + ID_392 + ID_393 + ID_394 + ID_395 + ID_396 + ID_397 + ID_398 + ID_399 + ID_400 + ID_401 + ID_402 + ID_403 + ID_404 + ID_405 + ID_406 + ID_407 + ID_408 + ID_409 + ID_410 + ID_411 + ID_412 + ID_413 + ID_414 + ID_415 + ID_416 + ID_417 + ID_418 + ID_419 + ID_420 + ID_421 + ID_422 + ID_423 + ID_424 + ID_425 + ID_426 + ID_427 + ID_428 + ID_429 + ID_430 + ID_431 + ID_432 + ID_433 + ID_434 + ID_435 + ID_436 + ID_437 + ID_438 + ID_439 + ID_440 + ID_441 + ID_442 + ID_443 + ID_444 + ID_445 + ID_446 + ID_447 + ID_448 + ID_449 + ID_450 + ID_451 + ID_452 + ID_453 + ID_454 + ID_455 + ID_456 + ID_457 + ID_458 + ID_459 + ID_460 + ID_461 + ID_462 + ID_463 + ID_464 + ID_465 + ID_466 + ID_467 + ID_468 + ID_469 + ID_470 + ID_471 + ID_472 + ID_473 + ID_474 + name_eval(Secular)), n.samples=1000)  
+                                                                      ID_337 + ID_338 + ID_339 + ID_340 + ID_341 + ID_342 + ID_343 + 
+                                                     ID_344 + ID_345 + ID_346 + ID_347 + ID_348 + ID_349 + ID_350 + ID_351 + ID_352 + 
+                                                     ID_353 + ID_354 + ID_355 + ID_356 + ID_357 + ID_358 + ID_359 + ID_360 + ID_361 +
+                                                     ID_362 + ID_363 + ID_364 + ID_365 + ID_366 + ID_367 + ID_368 + ID_369 + ID_370 + 
+                                                     ID_371 + ID_372 + ID_373 + ID_374 + ID_375 + ID_376 + ID_377 + ID_378 + ID_379 + 
+                                                     ID_380 + ID_381 + ID_382 + ID_383 + ID_384 + ID_385 + ID_386 + ID_387 + ID_388 + 
+                                                     ID_389 + ID_390 + ID_391 + ID_392 + ID_393 + ID_394 + ID_395 + ID_396 + ID_397 + 
+                                                     ID_398 + ID_399 + ID_400 + ID_401 + ID_402 + ID_403 + ID_404 + ID_405 + ID_406 + 
+                                                     ID_407 + ID_408 + ID_409 + ID_410 + ID_411 + ID_412 + ID_413 + ID_414 + ID_415 + 
+                                                     ID_416 + ID_417 + ID_418 + ID_419 + ID_420 + ID_421 + ID_422 + ID_423 + ID_424 + 
+                                                     ID_425 + ID_426 + ID_427 + ID_428 + ID_429 + ID_430 + ID_431 + ID_432 + ID_433 + 
+                                                     ID_434 + ID_435 + ID_436 + ID_437 + ID_438 + ID_439 + ID_440 + ID_441 + ID_442 + 
+                                                     ID_443 + ID_444 + ID_445 + ID_446 + ID_447 + ID_448 + ID_449 + ID_450 + ID_451 + 
+                                                     ID_452 + ID_453 + ID_454 + ID_455 + ID_456 + ID_457 + ID_458 + ID_459 + ID_460 + 
+                                                     ID_461 + ID_462 + ID_463 + ID_464 + ID_465 + ID_466 + ID_467 + ID_468 + ID_469 + 
+                                                     ID_470 + ID_471 + ID_472 + ID_473 + ID_474 + name_eval(Secular)), n.samples=10000)  
 
-Verif <- subset(Count.Pred, Time <1, select =c(ID, Time, Y, mean, sd, mean.mc_std_err, sd.mc_std_err, q0.025, q0.975, median)) # GOOD!
-
+Verif <- subset(Count.Pred, Time <1, select =c(ID, Time, Y, mean, sd, mean.mc_std_err, sd.mc_std_err, q0.025, q0.975, median)
+                
 columns_to_sum <- c("Y", "mean", "q0.025", "median", "q0.975")
-Verif2 <- Verif %>%
-  group_by(Time) %>%
-  summarise(across(all_of(columns_to_sum), sum))
+                Verif2 <- Verif %>%
+                  group_by(Time) %>%
+                  summarise(across(all_of(columns_to_sum), sum))
 Verif2$N <- 475
-
+                
 Post.1 <- subset(Count.Pred, Time ==1, select =c(ID, Time, mean, sd, mean.mc_std_err, sd.mc_std_err, q0.025, q0.975, median))
-
+                
 columns_to_sum <- c("mean", "q0.025", "median", "q0.975")
 Post.1.Sum <- Post.1 %>%
-  summarise(across(all_of(columns_to_sum), sum, na.rm = TRUE)) #THIS IS THE RESULT WE WANT
+             summarise(across(all_of(columns_to_sum), sum, na.rm = TRUE)) #THIS IS THE RESULT WE WANT
 Post.1.Sum$N <- 475; Post.1.Sum$Time <- 1;
-
+              
 #For post 2 we can sample 275 locations, first we select TIME =2
 Post.2 <- subset(Count.Pred, Time ==2, select =c(ID, Time, mean, sd, mean.mc_std_err, sd.mc_std_err, q0.025, q0.975, median))
 #second we sample, set.seed For reproducibility
 set.seed(123)
 Post.2a <- Post.2[sample(nrow(Post.2), 401), ]
 Post.2.Sum <- Post.2a %>%
-  summarise(across(all_of(columns_to_sum), sum, na.rm = TRUE)) #THIS IS THE RESULT WE WANT
+              summarise(across(all_of(columns_to_sum), sum, na.rm = TRUE)) #THIS IS THE RESULT WE WANT
 Post.2.Sum$N <- 401; Post.2.Sum$Time <- 2; 
-
+              
 #For post 3 we can sample 125 locations, first we select TIME =3
 Post.3 <- subset(Count.Pred, Time==3, select =c(ID, Time, mean, sd, mean.mc_std_err, sd.mc_std_err, q0.025, q0.975, median))
 #second we sample, set.seed For reproducibility
 set.seed(123)
 Post.3a <- Post.3[Post.3$ID %in% sample(nrow(Post.2), 201), ] # Note that I'm sampling from the 200 previous locations (Post.2)
 Post.3.Sum <- Post.3a %>%
-  summarise(across(all_of(columns_to_sum), sum, na.rm = TRUE)) #THIS IS THE RESULT WE WANT
+              summarise(across(all_of(columns_to_sum), sum, na.rm = TRUE)) #THIS IS THE RESULT WE WANT
 Post.3.Sum$N <- 201; Post.3.Sum$Time <- 3
-
+              
 #For post 4 we can sample 50 locations, first we select TIME =4
 Post.4 <- subset(Count.Pred, Time ==4, select =c(ID, Time, mean, sd, mean.mc_std_err, sd.mc_std_err, q0.025, q0.975, median))
 #second we sample, set.seed For reproducibility
 set.seed(123)
 Post.4a <- Post.4[Post.4$ID %in% sample(nrow(Post.3), 118), ] # Note that I'm sampling from the 100 previous locations (Post.3)
 Post.4.Sum <- Post.4a %>%
-  summarise(across(all_of(columns_to_sum), sum, na.rm = TRUE)) #THIS IS THE RESULT WE WANT
+             summarise(across(all_of(columns_to_sum), sum, na.rm = TRUE)) #THIS IS THE RESULT WE WANT
 Post.4.Sum$N <- 118;  Post.4.Sum$Time <- 4
-
+               
 RESULTS <- rbind.data.frame(Post.1.Sum, Post.2.Sum, Post.3.Sum, Post.4.Sum)
-
+              
 RESULTS$Lower_DIFF <- RESULTS$q0.025 - RESULTS$median
 RESULTS$Upper_DIFF <- RESULTS$q0.975 - RESULTS$median
-
+                
 RESULTS$Lower_PERC <- RESULTS$q0.025 / RESULTS$median
 RESULTS$Upper_PERC <- RESULTS$q0.975 / RESULTS$median
 write.csv(RESULTS,"RESULTS.csv", row.names = FALSE) 
-
+    
 # Find the columns in Verif2 that are not in RESULTS
 missing_columns <- setdiff(names(Verif2), names(RESULTS))
 # Add these columns to RESULTS with NA values
 RESULTS[missing_columns] <- NA
-
 # Find the columns in RESULTS that are not in Verif2
 missing_columns2 <- setdiff(names(RESULTS), names(Verif2))
 # Add these columns to Verif2 with NA values
 Verif2[missing_columns2] <- NA
-
+              
 # Now rbind the two datasets
-TOPLOT <- rbind(Verif2, RESULTS)
-
-names(TOPLOT)[names(TOPLOT) == "Y"] <- "Collisions"
-TOPLOT$CI_ratio <- TOPLOT$q0.975 / TOPLOT$q0.025
+Results_2 <- rbind(Verif2, RESULTS)
+            
+names(Results_2)[names(Results_2) == "Y"] <- "Collisions"
+Results_2$CI_ratio <- Results_2$q0.975 / Results_2$q0.025
 
 ## Step 3: Figure
 library(ggplot2)
@@ -580,8 +633,4 @@ ggsave(
   units = "px",
   dpi = 600
 )
-
-
-
-
 
